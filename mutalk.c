@@ -21,6 +21,9 @@ static const uint32_t UTALK_BEGIN_ADDR = 4009754625;
   XorOut: 0xFFFFFFFF
   Check : 0xCBF43926 ("123456789")
   MaxLen: 268 435 455 bytes (2 147 483 647 bit)
+ * 
+ * This is simple CRC32 hash table. 
+ * It could be extended or changed to something else
  */
 
 const static uint_least32_t Crc32Table[256] = {
@@ -90,7 +93,7 @@ const static uint_least32_t Crc32Table[256] = {
     0xB40BBE37, 0xC30C8EA1, 0x5A05DF1B, 0x2D02EF8D
 };
 
-uint32_t mutalk_hash(const char* name);
+static uint32_t mutalk_hash(const char* name);
 
 mutref mutalk_create(size_t buffer_size) {
     mutref talk;
@@ -248,7 +251,7 @@ mutalk_msg_t mutalk_wait(mutref talk, void *buffer, size_t buf_size, int32_t tim
     return msg;
 }
 
-uint32_t mutalk_hash(const char* name) {
+static uint32_t mutalk_hash(const char* name) {
     // This is CRC32 hash
     uint64_t len = strlen(name);
     uint_least32_t crc = 0xFFFFFFFF;
