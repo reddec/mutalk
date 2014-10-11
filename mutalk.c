@@ -97,13 +97,18 @@ static uint32_t mutalk_hash(const char* name);
 
 mutref mutalk_create(size_t buffer_size) {
     mutref talk;
-    int efd = epoll_create1(0);
+    int efd;
     int fd = socket(AF_INET, SOCK_DGRAM, 0);
     if (fd < 0) {
         perror("Create socket");
         return NULL;
     }
-    if (efd < 0)return NULL;
+    efd = epoll_create1(0);
+    if (efd < 0) {
+        perror("Create epoll");
+        close(fd);
+        return NULL;
+    }
     talk = (mutref) malloc(sizeof (mutalk_t));
     talk->cache_data = (char*) malloc(buffer_size);
     talk->cache_size = buffer_size;
@@ -198,7 +203,7 @@ void mutalk_group_remove(mutref talk, const char* name) {
 
 }
 
-void mutalk_send(mutref talk, const char *subject,const char * data, size_t size) {
+void mutalk_send(mutref talk, const char *subject, const char * data, size_t size) {
     size_t slen = strlen(subject);
     char *buffer = (char*) malloc(size + slen + 1);
     unsigned int addr_v = UTALK_BEGIN_ADDR + mutalk_hash(subject);
