@@ -10,7 +10,7 @@ See full example in `example.c`
 
 # Includes
 
-* `#include <stdbool.h`
+* `#include <stdbool.h>`
 * `#include <stdint.h>`
 
 # Constants
@@ -142,7 +142,7 @@ Leave MUTalk group. Do nothing if group not joined
 ## mutalk_send
 
 ```c
-void mutalk_send(mutref talk, const char *subject, char * data, size_t size)
+void mutalk_send(mutref talk, const char *subject,const char * data, size_t size)
 ```
 Send message to group.
 
