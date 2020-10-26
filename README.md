@@ -1,7 +1,7 @@
 mutalk
 ======
 
-![mutalk](https://user-images.githubusercontent.com/6597086/97156651-f9a62e80-17b1-11eb-9018-5b26912869f5.png)
+![mutalk](https://user-images.githubusercontent.com/6597086/97156868-47bb3200-17b2-11eb-8b4e-137f658459da.png)
 
 
 UDP Multicast messaging library
